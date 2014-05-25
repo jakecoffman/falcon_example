@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/3.0.2/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+</head>
+<body ng-controller="controller">
+<div class="jumbotron">
+    <h1>Falcon example</h1>
+</div>
+<div class="container">
+    <button ng-click="load()" class="btn btn-primary">Load</button>
+    <ul>
+        <li ng-repeat="thing in things">{{thing.id}} -- {{thing.name}}</li>
+    </ul>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-resource.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
