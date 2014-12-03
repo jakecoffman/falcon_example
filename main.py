@@ -1,6 +1,7 @@
 import os
 import json
 import falcon
+import mimetypes
 from wsgiref import simple_server
 
 
@@ -16,24 +17,18 @@ app.add_route("/things", Things())
 
 # This part is for convenience in development only
 if __name__ == "__main__":
-    def static(req, res):
-        path = req.path.lstrip("/")
+    def static(req, res, static_dir='static', index_file='index.html'):
+        path = static_dir + req.path
+        if req.path == '/':
+            path += index_file
         if os.path.isfile(path):
+            res.content_type = mimetypes.guess_type(path)[0]
             res.status = falcon.HTTP_200
             res.stream = open(path)
         else:
             res.status = falcon.HTTP_404
 
-
-    class Index:
-        def on_get(self, req, res):
-            res.content_type = "text/html"
-            res.status = falcon.HTTP_200
-            res.stream = open(os.path.join("static", "index.html"))
-
-
-    app.add_sink(static, "/static")
-    app.add_route("/", Index())
+    app.add_sink(static)
 
     host = "127.0.0.1"
     port = 8000
